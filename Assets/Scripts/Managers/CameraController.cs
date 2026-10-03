@@ -109,7 +109,7 @@ public class CameraController : MonoBehaviour
         transform.position = clampedPosition;
     }
 
-    private void ResetCamera()
+    public void ResetCamera()
     {
         transform.position = defaultPosition;
         transform.rotation = defaultRotation;

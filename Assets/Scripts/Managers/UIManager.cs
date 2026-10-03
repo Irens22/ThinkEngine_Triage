@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject infoPanel;
     public GameObject cameraPanel;
     public GameObject inGamePanel;
+    public GameObject consoleView;
     
     [Header("Counters MainMenu UI")]
     public TextMeshProUGUI doctorCMainTxt;
@@ -36,6 +37,8 @@ public class UIManager : MonoBehaviour
         inGamePanel.SetActive(false);
         infoPanel.SetActive(false);
         cameraPanel.SetActive(false);
+        consoleView.SetActive(false);
+        
     }
 
     public void StartSimulation()
@@ -47,6 +50,7 @@ public class UIManager : MonoBehaviour
         UpdateAllTexts();
         mainMenuPanel.SetActive(false);
         topBarPanel.SetActive(true);
+        consoleView.SetActive(true);
 
         if(plannerBrainHost != null)
         {
@@ -221,6 +225,13 @@ public class UIManager : MonoBehaviour
         infoPanel.SetActive(false);
         cameraPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
+
+        CameraController camController = Camera.main.GetComponent<CameraController>();
+    
+        if(camController != null)
+        {
+            camController.ResetCamera();
+        }
     }
 
     private void ResetCounters()

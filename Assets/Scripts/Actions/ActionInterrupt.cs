@@ -27,6 +27,7 @@ public class ActionInterrupt : Action
         {
             patient.StopAllCoroutines();
         }
+        Console.Instance.LogPatientAction($"EMERGENCY: Temporary interruption requested for Patient {patientId}.", patient.triageColor);
 
         if(IdRegistry.Instance.Doctors != null)
         {

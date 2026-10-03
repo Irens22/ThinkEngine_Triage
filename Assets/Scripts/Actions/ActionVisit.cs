@@ -44,10 +44,16 @@ public class ActionVisit : ThinkEngine.Planning.Action
         doctor = IdRegistry.Instance.Doctors[doctorId].GetComponent<StaffAI>();
         room = IdRegistry.Instance.Rooms[roomId].GetComponent<RoomManager>();
 
+        if (patient.currentState != PatientState.waiting || doctor.aspStatus != "idle")
+        {
+            return; 
+        }
+
+        patient.UpdateState(PatientState.in_visit);
         doctor.AssignTask(patientId);
         room.OccupyRoom(patientId);
-        patient.UpdateState(PatientState.in_visit);
 
+        Console.Instance.LogPatientAction($"Patient {patientId} called to Visit Room {roomId} by Doctor {doctorId}.", patient.triageColor);
         patient.StartCoroutine(VisitRoutine(patient, doctor, room));
         
     }

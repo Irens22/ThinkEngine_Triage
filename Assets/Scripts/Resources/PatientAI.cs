@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using TMPro;
 
 public enum PatientPose { Stand, Sit, LieDown }
 public enum TriageColor { white, green, blue, orange, red }
@@ -40,6 +41,7 @@ public class PatientAI : MonoBehaviour, IWakeable
     [Header("UI Reference")]
     public Slider timerSlider; 
     public Image fillImage; 
+    public TextMeshProUGUI hudName;
 
     private void Awake()
     {
@@ -64,6 +66,12 @@ public class PatientAI : MonoBehaviour, IWakeable
         {
             IdRegistry.Instance.RegisterPatient(patientId, transform);
         }
+
+        if (hudName != null)
+        {
+            hudName.text = $"Patient {patientId}";
+        }
+
         GoToWaitingRoom();
     }
 
@@ -163,6 +171,7 @@ public class PatientAI : MonoBehaviour, IWakeable
                 UpdateUIBarColor(Color.red);
                 break;
         }
+        Console.Instance.LogMessage($"WARNING: Patient {patientId} code worsened to {triageColor}.");
     }
 
     private void UpdateUIBarColor(Color uiColor)

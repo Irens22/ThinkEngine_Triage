@@ -39,10 +39,16 @@ public class ActionTherapy : Action
         room = patient.GetRoomByPatientId(patientId);
         if (room == null) return;
 
+        if (patient.currentState != PatientState.needs_therapy || nurse.aspStatus != "idle")
+        {
+            return; 
+        }
+
+        patient.UpdateState(PatientState.in_therapy);
         nurse.AssignTask(patientId);
         room.OccupyRoom(patientId);
-        patient.UpdateState(PatientState.in_therapy);
-
+        
+        Console.Instance.LogPatientAction($"Patient {patientId} starts Therapy by Nurse {nurseId}.", patient.triageColor);
         patient.StartCoroutine(TherapyRoutine(patient, nurse, room));
     }
 

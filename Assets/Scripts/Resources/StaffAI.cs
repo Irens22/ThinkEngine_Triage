@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using TMPro;
 
 public enum StaffType { doctor, nurse }
 
@@ -23,6 +24,9 @@ public class StaffAI : MonoBehaviour, IWakeable
     public float wanderRadius = 4f; 
     public float minWaitTime = 3f;  
     public float maxWaitTime = 10f; 
+
+    [Header("UI References")]
+    public TextMeshProUGUI hudName;
     
     private Coroutine wanderRoutine;
 
@@ -53,6 +57,14 @@ public class StaffAI : MonoBehaviour, IWakeable
         {
             IdRegistry.Instance.RegisterNurse(staffId, transform);
         }
+
+        if (hudName != null)
+        {
+            //converte l'enum in stringa e rende la prima lettera maiuscola (es. "Doctor 1000")
+            string title = char.ToUpper(staffType.ToString()[0]) + staffType.ToString().Substring(1);
+            hudName.text = $"{title} {staffId}";
+        }
+
         GoToStaffRoom();
     }
 

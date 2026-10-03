@@ -50,11 +50,17 @@ public class ActionCoopVisit : ThinkEngine.Planning.Action
         nurse = IdRegistry.Instance.Nurses[nurseId].GetComponent<StaffAI>();
         room = IdRegistry.Instance.Rooms[roomId].GetComponent<RoomManager>();
 
+        if (patient.currentState != PatientState.waiting || doctor.aspStatus != "idle" || nurse.aspStatus != "idle")
+        {
+            return; 
+        }
+
+        patient.UpdateState(PatientState.in_visit);
         doctor.AssignTask(patientId);
         nurse.AssignTask(patientId);
         room.OccupyRoom(patientId);
-        patient.UpdateState(PatientState.in_visit);
 
+        Console.Instance.LogPatientAction($"Patient {patientId} called to Visit Room {roomId} by Doctor {doctorId} and Nurse {nurseId}.", patient.triageColor);
         patient.StartCoroutine(CoopVisitRoutine(patient, doctor, nurse, room));
     }
 

@@ -32,8 +32,10 @@ public class ActionDischarge : Action
         PatientAI patient = IdRegistry.Instance.Patients[patientId].GetComponent<PatientAI>();
         StaffAI doctor = IdRegistry.Instance.Doctors[doctorId].GetComponent<StaffAI>();
 
-        doctor.AssignTask(patientId);
         patient.UpdateState(PatientState.in_discharge);
+        doctor.AssignTask(patientId);
+
+        Console.Instance.LogPatientAction($"Discharge: Doctor {doctorId} is about to discharge Patient {patientId}.", patient.triageColor);
         patient.StartCoroutine(DischargeRoutine(patient, doctor));
     }
 

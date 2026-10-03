@@ -36,9 +36,11 @@ public class ActionCoopDischarge : Action
         StaffAI doctor = IdRegistry.Instance.Doctors[doctorId].GetComponent<StaffAI>();
         StaffAI nurse = IdRegistry.Instance.Nurses[nurseId].GetComponent<StaffAI>();
 
+        patient.UpdateState(PatientState.in_discharge);
         doctor.AssignTask(patientId);
         nurse.AssignTask(patientId);
-        patient.UpdateState(PatientState.in_discharge);
+
+        Console.Instance.LogPatientAction($"Discharge: Doctor {doctorId} within Nurse {nurseId} are about to discharge Patient {patientId}.", patient.triageColor);
         patient.StartCoroutine(CoopDischargeRoutine(patient, doctor, nurse));
     }
 

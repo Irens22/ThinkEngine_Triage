@@ -48,11 +48,17 @@ public class ActionCoopTherapy : Action
         room = patient.GetRoomByPatientId(patientId);
         if (room == null) return;
 
+        if (patient.currentState != PatientState.needs_therapy || doctor.aspStatus != "idle" || nurse.aspStatus != "idle")
+        {
+            return; 
+        }
+
+        patient.UpdateState(PatientState.in_therapy);
         doctor.AssignTask(patientId);
         nurse.AssignTask(patientId);
         room.OccupyRoom(patientId);
-        patient.UpdateState(PatientState.in_therapy);
 
+        Console.Instance.LogPatientAction($"Patient {patientId} starts Therapy by Nurse {nurseId} and Doctor{doctorId}.", patient.triageColor);
         patient.StartCoroutine(CoopTherapyRoutine(patient, doctor, nurse, room));
     }
 

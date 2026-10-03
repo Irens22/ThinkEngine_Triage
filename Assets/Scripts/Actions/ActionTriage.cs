@@ -44,10 +44,15 @@ public class ActionTriage : Action
         nurse = IdRegistry.Instance.Nurses[nurseId].GetComponent<StaffAI>();
         room = IdRegistry.Instance.Rooms[roomId].GetComponent<RoomManager>();
 
+        if (patient.currentState != PatientState.arrived || nurse.aspStatus != "idle")
+        {
+            return; 
+        }
+        patient.UpdateState(PatientState.in_triage);
         nurse.AssignTask(patientId);
         room.OccupyRoom(patientId);
-        patient.UpdateState(PatientState.in_triage);
 
+        Console.Instance.LogPatientAction($"Patient {patientId} called to Triage Room {roomId} by Nurse {nurseId}.", patient.triageColor);
         patient.StartCoroutine(TriageRoutine(patient, nurse, room));
     }
 
