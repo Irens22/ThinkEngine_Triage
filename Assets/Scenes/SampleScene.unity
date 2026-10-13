@@ -8616,23 +8616,24 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'In sequence, for each standard patient:
 
-    TRIAGE -- VISIT -- DISCHARGE
+    TRIAGE - VISIT - THERAPY
+    - DISCHARGE
 
-    For
-    each red patient: TRIAGE -- visit in emergency room -- DISCHARGE
-
-
-    Aggravation
-    bar: possessed by each patient it is identified by its color code, which will
-    move to the next grade if it is not assisted within that time
+    For each red patient: TRIAGE - visit in emergency room -  THERAPY
+    - DISCHARGE
 
 
-    Logic rules:
-    each triage is performed by a nurse; each visit by a doctor; after the visit,
-    the patient remains in the same room awaiting therapy, performed by the nurse,
-    and the doctor then visits the patient for discharge; if a patient is red, all
-    actions except triage must be performed by both a nurse and a doctor. Actions
-    can be stopped at any time if there is an emergency (red patient).
+    AGGRAVATION BAR: possessed by each patient it is identified
+    by its color code, which will move to the next grade if it is not assisted within
+    that time
+
+
+    LOGIC RULES: each triage is performed by a nurse; each visit
+    by a doctor; after the visit, the patient remains in the same room awaiting therapy,
+    performed by the nurse, and the doctor then visits the patient for discharge;
+    if a patient is red, all actions except triage must be performed by both a nurse
+    and a doctor. Actions can be stopped at any time if there is an emergency (red
+    patient).
 
 '
   m_isRightToLeft: 0

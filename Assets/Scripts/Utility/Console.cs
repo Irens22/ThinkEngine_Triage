@@ -80,4 +80,13 @@ public class Console : MonoBehaviour
 
         LogMessage(message, hexColor);
     }
+
+    public void ClearConsole()
+    {
+        logLines.Clear();
+        consoleText.text = "";
+        
+        messageHistory.Clear(); 
+        LogMessage("--- SIMULATION STARTED ---", "#FFFFFF");
+    }
 }

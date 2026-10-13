@@ -27,4 +27,10 @@ public class ConsoleToggle : MonoBehaviour
         consoleGroup.interactable = isVisible;
         consoleGroup.blocksRaycasts = isVisible; 
     }
+
+    public void Hide()
+    {
+        isVisible = false;
+        UpdateVisibility();
+    }
 }

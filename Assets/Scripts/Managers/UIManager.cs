@@ -212,6 +212,12 @@ public class UIManager : MonoBehaviour
     //metodi di pulizia e stop
     public void StopSimulation()
     {
+        FindObjectOfType<ConsoleToggle>().Hide();
+        if(Console.Instance != null)
+        {
+            Console.Instance.ClearConsole();
+        }
+
         if(plannerBrainHost != null)
         {
             plannerBrainHost.SetActive(false);
